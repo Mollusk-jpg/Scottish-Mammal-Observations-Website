@@ -1,3 +1,9 @@
+<?php
+
+require_once 'includes/header.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en-GB">
 <head>
@@ -11,12 +17,5 @@
         <p>Hello, World!</p>
         <p>This is the contact page.</p>
     </div>
-    <nav>
-    <ul>
-        <li><a href="index.php">Home</a></li>
-        <li><a href="about.php">About</a></li>
-        <li><a href="contact.php">Contact</a></li>
-    </ul>
-</nav>
 </body>
 </html>
