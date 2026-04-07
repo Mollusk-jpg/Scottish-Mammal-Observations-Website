@@ -2,6 +2,8 @@
 /**
  * Configuration file for the Scottish Mammal Observations Database
  * SET08101 Web Technologies Coursework
+ * 
+ * Access PHPADMIn through: http://localhost/phpmyadmin5.2.3/
  */
 
 // Database configuration
