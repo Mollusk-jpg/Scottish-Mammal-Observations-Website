@@ -1,9 +1,7 @@
 <?php
 
-
 require_once 'includes/config.php';
 require_once 'includes/db.php';
-
 
 $pageTitle = 'All Observations';
 
@@ -20,19 +18,24 @@ $species_names = $stmt->fetchAll();
 require_once 'includes/header.php';
 ?>
 
+<head>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <?php if (empty($species_names)): ?>
     <p>No species names found in the database.</p>
 <?php else: ?>
-    <div>
-        <p>Hello, World!</p>
-        <!-- $names = '' -->
+    
         <?php   foreach ($species_names as $names): ?>
-                    <p><?php echo e($names['common_name']); ?></p>
+        <div class="card">
+                <div class="container">
+                    <p>Common name: <b> <?php echo e($names['common_name']); ?> </b></p>
+                    <p>Species name: <?php echo e($names['species_name']); ?></p>
+                </div>
+        </div>
         <?php   endforeach;?>
-    </div>
+    
 <?php endif; ?>
 
 </body>
