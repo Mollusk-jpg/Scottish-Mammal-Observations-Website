@@ -33,8 +33,9 @@ require_once 'includes/header.php';
         <div class="center" >
         <div class="card">
                 <div class="container">
-                    <img src="images/american_mink.jpg" alt="American Mink" style="width:50px;height:60px;">
-                    <p><b> <?php echo e($names['common_name']); ?> </b>____</p>
+                    <h1 class="center"><?php echo e($names['common_name'][0]); ?></h1>
+                    <!-- <img src="images/american_mink.jpg" alt="American Mink" style="width:50px;height:60px;"> -->
+                    <p><a href=" *placeholder* "><b> <?php echo e($names['common_name']); ?> </b></a></p>
                     <p><?php echo e($names['species_name']); ?></p>
                 </div>
             </div>

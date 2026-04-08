@@ -9,14 +9,28 @@
     padding: 0;
 }
 
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 2rem;
+}
+
 
 .card {
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    transition: 0.3s;
-    width: 40%;
+    flex: 1 1 100px; /* Grow, shrink, minimum 300px base */
+    padding: 1.5rem;
+    background-color: var(--colour-surface);
+    border: 1px solid var(--colour-border);
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    opacity: 1;
 }
 
 .card:hover {
+    transform: translateY(10px);
+    opacity: 1;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
@@ -34,3 +48,4 @@
     margin-right: auto;
     width: 50%;
 }
+
