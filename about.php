@@ -20,22 +20,26 @@ require_once 'includes/header.php';
 
 <head>
     <link rel="stylesheet" href="css/style.css">
+<style>
+
+</style>
 </head>
 <body>
 
 <?php if (empty($species_names)): ?>
     <p>No species names found in the database.</p>
 <?php else: ?>
-    
         <?php   foreach ($species_names as $names): ?>
+        <div class="center" >
         <div class="card">
                 <div class="container">
-                    <p>Common name: <b> <?php echo e($names['common_name']); ?> </b></p>
-                    <p>Species name: <?php echo e($names['species_name']); ?></p>
+                    <img src="images/american_mink.jpg" alt="American Mink" style="width:50px;height:60px;">
+                    <p><b> <?php echo e($names['common_name']); ?> </b>____</p>
+                    <p><?php echo e($names['species_name']); ?></p>
                 </div>
+            </div>
         </div>
         <?php   endforeach;?>
-    
 <?php endif; ?>
 
 </body>

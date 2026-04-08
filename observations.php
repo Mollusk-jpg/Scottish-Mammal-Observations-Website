@@ -1,11 +1,4 @@
 <?php
-/**
- * Scottish Mammal Observations Database - Home Page
- * Displays a list of all Scottish mammal species
- *
- * SET08101 Web Technologies Coursework Starter Code
- */
-
 require_once 'includes/db.php';
 
 $pageTitle = 'All Observations';

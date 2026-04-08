@@ -21,5 +21,16 @@
 }
 
 .container {
-    padding: 2px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 2px 16px; */
+    height: 100px;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
