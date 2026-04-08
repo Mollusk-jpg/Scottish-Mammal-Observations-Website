@@ -26,21 +26,13 @@ require_once 'includes/header.php';
 <?php if (empty($species_names)): ?>
     <p>No species names found in the database.</p>
 <?php else: ?>
-<table>
-    <thead>
-        <tr>
-            <th>Common Name</th>
-        </tr>
-    </thead>
     <div>
         <p>Hello, World!</p>
         <!-- $names = '' -->
         <?php   foreach ($species_names as $names): ?>
                     <p><?php echo e($names['common_name']); ?></p>
         <?php   endforeach;?>
-        <a href="index.php">Home</a>
     </div>
-<table>
 <?php endif; ?>
 
 </body>

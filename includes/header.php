@@ -12,7 +12,7 @@
         <h1>Scottish Mammal Observations Database</h1>
         <nav>
             <a href="index.php">Home</a>
-            <a href="about.php">About</a>
+            <a href="about.php">Animal List</a>
             <a href="observations.php">Observations</a>
 
             <!-- Students: Add more navigation links here -->
