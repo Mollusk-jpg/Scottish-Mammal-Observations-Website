@@ -9,7 +9,8 @@ $pdo = getDbConnection();
 $stmt = $pdo->query('
     SELECT
         common_name,
-        species_name
+        species_name,
+        gbif_species_key
     FROM species
     ORDER BY common_name
 ');
@@ -17,4 +18,10 @@ $species_names = $stmt->fetchAll();
 
 
 ?>
-<p>Hello World!</p>
+<head>
+</head>
+<body>
+<?php   foreach ($species_names as $names): ?>
+<p><?php echo e($names['gbif_species_key']); ?></p>
+<?php endforeach ?>
+</body>
