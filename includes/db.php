@@ -33,3 +33,18 @@ function getDbConnection() {
 
     return $pdo;
 }
+
+
+function getAllObservations() {
+    $pdo = getDbConnection();
+    $stmt = $pdo->query("SELECT * FROM observations ORDER BY id");
+    return $stmt->fetchAll();
+}
+
+function getAllSpecies() {
+    $pdo = getDbConnection();
+    $stmt = $pdo->query("SELECT * FROM species ORDER BY gbif_species_key");
+    return $stmt->fetchAll();
+}
+
+?>
