@@ -9,7 +9,8 @@ $pdo = getDbConnection();
 $stmt = $pdo->query('
     SELECT
         common_name,
-        species_name
+        species_name,
+        gbif_species_key
     FROM species
     ORDER BY common_name
 ');
@@ -35,7 +36,7 @@ require_once 'includes/header.php';
                 <div class="container">
                     <h1 class="center"><?php echo e($names['common_name'][0]); ?></h1>
                     <!-- <img src="images/american_mink.jpg" alt="American Mink" style="width:50px;height:60px;"> -->
-                    <p><a href=" *placeholder* "><b> <?php echo e($names['common_name']); ?> </b></a></p>
+                    <a href="view_animal.php?key=<?php echo e($names['gbif_species_key']); ?>"><?php echo e($names['common_name']); ?></a>
                     <p><?php echo e($names['species_name']); ?></p>
                 </div>
             </div>
