@@ -14,6 +14,7 @@
             <a href="index.php">Home</a>
             <a href="about.php">Animal List</a>
             <a href="observations.php">Observations</a>
+            <a href="add_observation.php">Add Observations</a>
 
             <!-- Students: Add more navigation links here -->
         </nav>

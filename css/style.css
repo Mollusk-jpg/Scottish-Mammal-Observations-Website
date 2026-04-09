@@ -20,26 +20,28 @@
 .card {
     flex: 1 1 100px; /* Grow, shrink, minimum 300px base */
     padding: 1.5rem;
-    background-color: var(--colour-surface);
+    background-color: black;
     border: 1px solid var(--colour-border);
     border-radius: 8px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     text-align: center;
     opacity: 1;
+    margin: 10px;
 }
 
 .card:hover {
-    transform: translateY(10px);
+    transform: translateY(2px);
     opacity: 1;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 }
 
 .container {
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     /* padding: 2px 16px; */
-    height: 100px;
+    height: 25px;
 }
 
 .center {

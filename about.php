@@ -16,7 +16,7 @@ $stmt = $pdo->query('
 ');
 $species_names = $stmt->fetchAll();
 
-require_once 'includes/header.php';
+require_once 'includes/animal_list_header.php';
 ?>
 
 <head>
@@ -34,7 +34,9 @@ require_once 'includes/header.php';
         <div class="center" >
         <div class="card">
                 <div class="container">
-                    <h1 class="center"><?php echo e($names['common_name'][0]); ?></h1>
+                    <div>
+                        <h1><?php echo e($names['common_name'][0]); ?></h1>
+                    </div>
                     <!-- <img src="images/american_mink.jpg" alt="American Mink" style="width:50px;height:60px;"> -->
                     <a href="view_animal.php?key=<?php echo e($names['gbif_species_key']); ?>"><?php echo e($names['common_name']); ?></a>
                     <p><?php echo e($names['species_name']); ?></p>
