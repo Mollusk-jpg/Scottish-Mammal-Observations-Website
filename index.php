@@ -14,7 +14,8 @@ $stmt = $pdo->query('
         iucn_red_list_category,
         dietary_category,
         body_mass_kg,
-        habitat
+        habitat,
+        image_url
     FROM species
     ORDER BY common_name
 ');
@@ -40,6 +41,7 @@ require_once 'includes/header.php';
                 <th>Body Mass (kg)</th>
                 <th>Habitat</th>
                 <th>Action</th>
+                <th>photo</th>
             </tr>
         </thead>
         <tbody>
@@ -52,6 +54,7 @@ require_once 'includes/header.php';
                     <td><?php echo e($sp['body_mass_kg']); ?></td>
                     <td><?php echo e($sp['habitat']); ?></td>
                     <td><a href="species.php?key=<?php echo e($sp['gbif_species_key']); ?>">View Details</a></td>
+                    <td><img src="<?php echo e($sp['image_url']) ?>" style="width:50px;height:50px;" ></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
