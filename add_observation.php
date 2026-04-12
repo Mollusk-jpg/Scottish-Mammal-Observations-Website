@@ -1,35 +1,34 @@
-<?php
-require_once 'includes/header.php';
-?>
 
-<form id="contact-form">
-    <div class="form-group">
-        <label for="name">Name *</label>
-        <input type="text" id="name" name="name"
-            required minlength="2" placeholder="Your name">
-        <span class="error-message"></span>
-    </div>
+<html>
+<body>
+<main>
+    <h1> Add Observation </h1>
 
-    <div class="form-group">
-        <label for="email">Email *</label>
-        <input type="email" id="email" name="email"
-            required placeholder="your@email.com">
-        <span class="error-message"></span>
-    </div>
+    <form action="process_observation.php" method="post">
+        <label for="id">id</label>
+        <input type="number" id="id" name="id">
 
-    <div class="form-group">
-        <label for="phone">Phone</label>
-        <input type="tel" id="phone" name="phone"
-            pattern="[0-9]{11}" placeholder="01onal1234567">
-        <span class="error-message"></span>
-    </div>
+        <label for="locality">locality</label>
+        <input type="text" id="locality" name="locality">
 
-    <div class="form-group">
-        <label for="message">Message *</label>
-        <textarea id="message" name="message"
-            required minlength="10" placeholder="Your message..."></textarea>
-        <span class="error-message"></span>
-    </div>
+        <label for="individual_count">individual_count</label>
+        <input type="number" id="individual_count" name="individual_count">
 
-    <button type="submit">Send Message</button>
-</form>
+        <label for="latitude">latitude</label>
+        <input type="number" id="latitude" name="latitude">
+
+        <label for="longitude">longitude</label>
+        <input type="number" id="longitude" name="longitude">
+
+        <label for="gbif_species_key">gbif_species_key</label>
+        <input type="number" id="gbif_species_key" name="gbif_species_key">
+
+        <label for="observation_date">observation_date</label>
+        <input type="number" id="observation_date" name="observation_date">
+    
+        <br>
+        <button>Send</button>
+    </form>
+</main>
+</body>
+</html>

@@ -15,9 +15,19 @@ $stmt = $pdo->query('
         gbif_species_key,
         observation_date
     FROM observations
-    ORDER BY id
+    ORDER BY observation_date
 ');
 $observations = $stmt->fetchAll();
+
+$pdo = getDbConnection();
+$stmt = $pdo->query('
+    SELECT
+        species_name,
+        common_name,
+        gbif_species_key
+    FROM species
+');
+$species = $stmt->fetchAll();
 
 require_once 'includes/header.php';
 ?>
@@ -29,6 +39,8 @@ require_once 'includes/header.php';
     <table>
         <thead>
             <tr>
+                <th>species name</th>
+                <th>GBIF</th>
                 <th>ID</th>
                 <th>Individual Count</th>
                 <th>Latitude</th>
@@ -38,6 +50,12 @@ require_once 'includes/header.php';
             </tr>
         </thead>
         <tbody>
+            <?php foreach ($species as $specie): ?>
+                <tr>
+                    <td><?php echo e($specie['common_name']); ?></td>
+                    <td><?php echo e($specie['gbif_species_key']); ?></td>
+                </tr>
+            <?php endforeach; ?>
             <?php foreach ($observations as $ob): ?>
                 <tr>
                     <td><?php echo e($ob['id']); ?></td>
