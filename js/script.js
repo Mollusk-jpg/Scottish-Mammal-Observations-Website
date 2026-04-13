@@ -4,8 +4,7 @@ form.addEventListener('submit', function(event) {
     event.preventDefault(); // Stop the form from submitting
 
     if (validateForm()) {
-        alert('Form is valid! In Block 7, this will submit to PHP.');
-        // form.submit(); // Would actually submit when PHP is ready
+        form.submit(); // Would actually submit when PHP is ready
     }
 });
 

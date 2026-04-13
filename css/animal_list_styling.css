@@ -72,3 +72,11 @@ border-radius: 4px;
     float: none;
 }
 }
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    color: white;
+}

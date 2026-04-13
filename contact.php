@@ -1,5 +1,7 @@
 <?php
     require_once 'includes/animal_list_header.php';
+
+    $sitename = "Contact";
 ?>
 
 <!DOCTYPE html>
@@ -7,13 +9,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - My Website</title>
+    <title>Contact - My Website</title>
     <link rel="stylesheet" href="css/contact_style.css">
 
 </head>
 <body>
-
-    <form id="contact-form">
+<h1> Contact Us </h1>
+    <form action="includes/process_message.php" id="contact-form" method="post">
     <div class="form-group">
         <label for="name">Name *</label>
         <input type="text" id="name" name="name"
@@ -42,27 +44,8 @@
         <span class="error-message"></span>
     </div>
 
-    <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" id="password" name="password"
-        placeholder="Create a password">
-    <div id="strength-indicator">
-        <div id="strength-bar"></div>
-    </div>
-    <p id="strength-text">Password strength: <span>None</span></p>
-    </div>
-
     <button type="submit">Send Message</button>
     </form>
-
-
-    <section id="api-demo">
-        <h2>API Data Demo</h2>
-        <button id="fetch-btn">Load Posts</button>
-        <div id="loading" class="hidden">Loading...</div>
-        <div id="data-container"></div>
-        <div id="error-container" class="hidden"></div>
-    </section>
 
     <script src="js/script.js" defer></script>
 </body>
