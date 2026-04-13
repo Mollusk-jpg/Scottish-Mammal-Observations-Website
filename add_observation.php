@@ -4,7 +4,7 @@
 <main>
     <h1> Add Observation </h1>
 
-    <form action="process_observation.php" method="post">
+    <form action="includes/process_observation.php" method="post">
         <label for="id">id</label>
         <input type="number" id="id" name="id">
 

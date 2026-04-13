@@ -1,4 +1,7 @@
 <?php
+// THIS IS FOR add_observation.php
+// Is run when an observation is being submitted to SQL
+
 
 // store data values
 $id = $_POST['id'] ?? null;
