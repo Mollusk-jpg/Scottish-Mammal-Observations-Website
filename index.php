@@ -3,6 +3,7 @@
 require_once 'includes/db.php';
 
 $pageTitle = 'All Species';
+$image_number = 0;
 
 // Fetch all species from the database
 $pdo = getDbConnection();
@@ -23,6 +24,10 @@ $species = $stmt->fetchAll();
 
 require_once 'includes/header.php';
 ?>
+
+<head>
+    <link rel="stylesheet" href="css/image_popup.css">
+</head>
 
 <h2>Scottish Mammal Species</h2>
 
@@ -54,11 +59,20 @@ require_once 'includes/header.php';
                     <td><?php echo e($sp['body_mass_kg']); ?></td>
                     <td><?php echo e($sp['habitat']); ?></td>
                     <td><a href="species.php?key=<?php echo e($sp['gbif_species_key']); ?>">View Details</a></td>
-                    <td><img src="<?php echo e($sp['image_url']) ?>" style="width:50px;height:50px;" ></td>
+                    <td>
+                        <img class="myImages" src="<?php echo e($sp['image_url']) ?>" style="width:50px;height:50px;" >
+                        <div id="myModal" class="modal">
+                        <span class="close">&times;</span>
+                        <img class="modal-content" id="img01">
+                        <div id="caption"></div>
+                        </div>
+                    </td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
 <?php endif; ?>
+
+<script src="js/image_modal.js" defer></script>
 
 <?php require_once 'includes/footer.php'; ?>
