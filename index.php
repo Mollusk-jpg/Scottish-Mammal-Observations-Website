@@ -31,20 +31,23 @@ require_once 'includes/header.php';
 
 <h2>Scottish Mammal Species</h2>
 
+
+
 <p>Explore our database of 34 mammal species found in Scotland.</p>
+
 
 <?php if (empty($species)): ?>
     <p>No species found in the database.</p>
 <?php else: ?>
-    <table>
+    <table id="myTable">
         <thead>
             <tr>
-                <th>Common Name</th>
-                <th>Scientific Name</th>
-                <th>Conservation Status</th>
-                <th>Dietary Category</th>
-                <th>Body Mass (kg)</th>
-                <th>Habitat</th>
+                <th onclick="sortTable(0)">Common Name</th>
+                <th onclick="sortTable(1)">Scientific Name</th>
+                <th onclick="sortTable(2)">Conservation Status</th>
+                <th onclick="sortTable(3)">Dietary Category</th>
+                <th onclick="sortTableNumber(4)">Body Mass (kg)</th>
+                <th onclick="sortTable(5)">Habitat</th>
                 <th>Action</th>
                 <th>photo</th>
             </tr>
