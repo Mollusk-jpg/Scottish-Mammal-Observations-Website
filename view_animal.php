@@ -5,7 +5,7 @@ require_once 'includes/db.php';
 $pageTitle = 'All Observations';
 
 if (!isset($_GET['key']) || !is_numeric($_GET['key'])) {
-    header('Location: about.php');
+    header('Location: animal_list.php');
     exit;
 }
 
@@ -31,9 +31,9 @@ $page_name = '';
 $coordinate_x = 0;
 $coordinate_y = 0;
 
-$list = array();
+$coordinateList = array();
 
-// Create list of latitude and longitude points. (currently returns string, will fix later)
+// Create list of latitude and longitude points. (currently returns string, FIXED)
 foreach ($species as $specie): 
     if ($specie['gbif_species_key'] == $speciesKey){
         echo $specie['common_name'], " Latitude and Longitude: "; 
@@ -41,21 +41,134 @@ foreach ($species as $specie):
     
     foreach ($observations as $observation): 
         if ($observation['gbif_species_key'] == $speciesKey){
-            $coordinate_x = $observation['latitude'];
-            $coordinate_y = $observation['longitude'];
-            if (! in_array($coordinate_x, $list) && ! in_array($coordinate_y, $list)){
-                $list[] = [$coordinate_x, $coordinate_y];
+            // (float) converts string into float.
+            $coordinate_x = (float) $observation['latitude'];
+            $coordinate_y = (float) $observation['longitude'];
+            if (! in_array($coordinate_x, $coordinateList) && ! in_array($coordinate_y, $coordinateList)){
+                $coordinateList[] = [$coordinate_x, $coordinate_y];
             }
         }
     endforeach;
 endforeach;
+
+
+
+
+// ---- Above code takes a long time to run, trying to make it speedier. 
+
+$pdo = getDbConnection();
+
+// Fetch the species details
+$stmt = $pdo->prepare('
+    SELECT
+        observations.locality,
+        observations.individual_count,
+        observations.latitude,
+        observations.longitude,
+        observations.observation_date,
+        observations.gbif_species_key,
+        species.common_name,
+        species.species_name,
+        species.iucn_red_list_category,
+        species.body_mass_kg,
+        species.image_url
+    FROM observations, species
+    WHERE observations.gbif_species_key = species.gbif_species_key 
+    ORDER BY `observations`.`observation_date` DESC
+');
+$stmt->execute();
+$joined_gbif = $stmt->fetchAll();
+
+$species_name = '';
+$species_common_name ='';
+$species_body_mass = '';
+$species_iucn_cat = '';
+$species_image_url = '';
+
+
+foreach ($joined_gbif as $joined_g){
+    if ($joined_g['gbif_species_key'] == $speciesKey){
+        $species_name = $joined_g["species_name"];
+        $species_common_name = $joined_g["common_name"];
+        $species_body_mass = $joined_g["body_mass_kg"];
+        $species_iucn_cat = $joined_g["iucn_red_list_category"];
+        $species_image_url = $joined_g["image_url"];
+    }
+}
 ?>
 
 
 <head>
 </head>
 <body>
-<p><a href="about.php">&larr; Back to species list</a></p>
+<p><a href="animal_list.php">&larr; Back to species list</a></p>
+
+<h1><?= $page_name ?></h1>
+
+<?php
+var_dump($coordinateList)
+?>
+
+<img class="myImages" src="<?php echo e($species_image_url) ?>" style="width:150px;height:150px;" >
+
+<p><?php echo e($species_name); ?></p>
+<p><?php echo e($species_common_name); ?></p>
+<p><?php echo e($species_body_mass); ?></p>
+
+<?php if(!is_null($species_iucn_cat)): ?>
+    <p><?php echo e($species_iucn_cat); ?></p>
+<?php endif ?>
+
+<?php if (empty($joined_gbif)): ?>
+    <p>No observations found in the database.</p>
+<?php else: ?>
+    <table id="results">
+        <thead>
+            <tr>
+                <th>Locality</th>
+                <th>latitude</th>
+                <th>longitude</th>
+                <th>observation_date</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <?php foreach ($joined_gbif as $joined_g): ?>
+                <?php if ($joined_g['gbif_species_key'] == $speciesKey): ?>
+                    <tr>
+                        <?php if(!is_null($joined_g["locality"])): ?>
+                            <td><?php echo e($joined_g["locality"]); ?></td>
+                        <?php else: ?>
+                            <td><?php echo "Locality Not Registered"; ?></td>
+                        <?php endif ?>
+
+                        
+                        <?php if(!is_null($joined_g["latitude"])): ?>
+                            <td><?php echo e($joined_g["latitude"]); ?></td>
+                        <?php else: ?>
+                            <td><?php echo "N/A"; ?></td>
+                        <?php endif ?>
+
+                        <?php if(!is_null($joined_g["longitude"])): ?>
+                            <td><?php echo e($joined_g["longitude"]); ?></td>
+                        <?php else: ?>
+                            <td><?php echo "N/A"; ?></td>
+                        <?php endif ?>
+
+                        <?php if(!is_null($joined_g["observation_date"])): ?>
+                            <td><?php echo e($joined_g["observation_date"]); ?></td>
+                        <?php else: ?>
+                            <td><?php echo "N/A"; ?></td>
+                        <?php endif ?>
+
+                    </tr>
+                <?php endif ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+<?php endif; ?>
+
+
 
 <!-- This is to make the header the same animal clicked on in about.php -->
 <?php foreach ($species_names as $name):
@@ -64,10 +177,5 @@ if ($name['gbif_species_key'] == $speciesKey){
 }
 endforeach
 ?>
-    <h1><?= $page_name ?></h1>
-    
-        <?php 
-        var_dump($list)
-        ?>
     
 </body>
