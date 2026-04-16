@@ -16,6 +16,7 @@
             <a href="observations.php">Observations</a>
             <a href="add_observation.php">Add Observations</a>
             <a href="contact.php">Contact Us</a>
+            <a href="about_us.php">About Us</a>
 
             <!-- Students: Add more navigation links here -->
         </nav>

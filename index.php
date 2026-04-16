@@ -35,6 +35,14 @@ require_once 'includes/header.php';
 
 <p>Explore our database of 34 mammal species found in Scotland.</p>
 
+<!-- Search Bar --> 
+<input type="text" id="myInputName" onkeyup="mySearchFunctionNames()" placeholder="Search for Names">
+
+<input type="text" id="myInputCStatus" onkeyup="mySearchFunctionCStatus()" placeholder="Search for Con. Status">
+
+<input type="text" id="myInputDiet" onkeyup="mySearchFunctionDiet()" placeholder="Search for Diet Category">
+
+<input type="text" id="myInputHabitat" onkeyup="mySearchFunctionHabitat()" placeholder="Search for Habitat">
 
 <?php if (empty($species)): ?>
     <p>No species found in the database.</p>
@@ -42,12 +50,12 @@ require_once 'includes/header.php';
     <table id="myTable">
         <thead>
             <tr>
-                <th onclick="sortTable(0)">Common Name</th>
-                <th onclick="sortTable(1)">Scientific Name</th>
-                <th onclick="sortTable(2)">Conservation Status</th>
-                <th onclick="sortTable(3)">Dietary Category</th>
-                <th onclick="sortTableNumber(4)">Body Mass (kg)</th>
-                <th onclick="sortTable(5)">Habitat</th>
+                <th onclick="sortTable(0)" style="cursor:pointer">Common Name</th>
+                <th onclick="sortTable(1)" style="cursor:pointer">Scientific Name</th>
+                <th onclick="sortTable(2)" style="cursor:pointer">Conservation Status</th>
+                <th onclick="sortTable(3)" style="cursor:pointer">Dietary Category</th>
+                <th onclick="sortTableNumber(4)" style="cursor:pointer">Body Mass (kg)</th>
+                <th onclick="sortTable(5)" style="cursor:pointer">Habitat</th>
                 <th>Action</th>
                 <th>photo</th>
             </tr>
@@ -76,6 +84,6 @@ require_once 'includes/header.php';
     </table>
 <?php endif; ?>
 
-<script src="js/image_modal.js" defer></script>
+<script src="js/indexJS.js" defer></script>
 
 <?php require_once 'includes/footer.php'; ?>

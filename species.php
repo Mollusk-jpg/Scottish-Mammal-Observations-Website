@@ -66,6 +66,7 @@ $pageTitle = $species['common_name'];
 require_once 'includes/header.php';
 ?>
 
+<body>
 <p><a href="index.php">&larr; Back to all species</a></p>
 
 <h2><?php echo e($species['common_name']); ?></h2>
@@ -108,10 +109,11 @@ endforeach
 ?>
 
 <h1> Observations for <?php echo e($species['common_name']) ?> </h1>
+
 <?php if (empty($species)): ?>
     <p>No observations found in the database.</p>
 <?php else: ?>
-    <table>
+    <table id="results">
         <thead>
             <tr>
                 <th>locality</th>
@@ -168,4 +170,7 @@ endforeach
     </table>
 <?php endif; ?>
 
+<script src="js/species.js" defer></script>
+
 <?php require_once 'includes/footer.php'; ?>
+</body>
