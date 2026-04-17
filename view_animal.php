@@ -30,6 +30,7 @@ $page_name = '';
 
 $coordinate_x = 0;
 $coordinate_y = 0;
+$coordinate_loc = '';
 
 $coordinateList = array();
 
@@ -42,10 +43,11 @@ foreach ($species as $specie):
     foreach ($observations as $observation): 
         if ($observation['gbif_species_key'] == $speciesKey){
             // (float) converts string into float.
+            $coordinate_loc = $observation['locality'];
             $coordinate_x = (float) $observation['latitude'];
             $coordinate_y = (float) $observation['longitude'];
-            if (! in_array($coordinate_x, $coordinateList) && ! in_array($coordinate_y, $coordinateList)){
-                $coordinateList[] = [$coordinate_x, $coordinate_y];
+            if (! in_array($coordinate_loc, $coordinateList) && ! in_array($coordinate_x, $coordinateList) && ! in_array($coordinate_y, $coordinateList)){
+                $coordinateList[] = [$coordinate_loc, $coordinate_x, $coordinate_y];
             }
         }
     endforeach;
@@ -97,6 +99,8 @@ foreach ($joined_gbif as $joined_g){
     }
 }
     
+
+require_once 'includes/animal_list_header.php';
 ?>
 
 
@@ -108,7 +112,21 @@ foreach ($joined_gbif as $joined_g){
         #map { 
             height: 500px; 
             width: 500px;
-            float: right;}
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;}
+
+        p {
+            color: white;
+        }
+
+        .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        }
     </style>
 </head>
 <body>
@@ -116,11 +134,11 @@ foreach ($joined_gbif as $joined_g){
 
 <h1><?= $page_name ?></h1>
 
-<img class="myImages" src="<?php echo e($species_image_url) ?>" style="width:150px;height:150px;" >
+<img class="center" src="<?php echo e($species_image_url) ?>" style="width:150px;height:150px;" >
 
-<p><?php echo e($species_name); ?></p>
-<p><?php echo e($species_common_name); ?></p>
-<p><?php echo e($species_body_mass); ?></p>
+<p class="center">Species Name: <?php echo e($species_name); ?></p>
+<p class="center">Common Name: <?php echo e($species_common_name); ?></p>
+<p class="center">Body Mass: <?php echo e($species_body_mass); ?></p>
 
 <?php if(!is_null($species_iucn_cat)): ?>
     <p><?php echo e($species_iucn_cat); ?></p>
@@ -196,4 +214,14 @@ endforeach
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
+
+    // Convert php array into js array
+    var jsCoordinateArray = <?php echo json_encode($coordinateList); ?>;
+
+    for (var i = 0; i < jsCoordinateArray.length; i++) {
+        marker = new L.marker([jsCoordinateArray[i][1], jsCoordinateArray[i][2]])
+        .bindPopup(jsCoordinateArray[i][0])
+        .addTo(map);
+    }
+    
 </script>
