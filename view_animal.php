@@ -79,6 +79,7 @@ $stmt = $pdo->prepare('
 $stmt->execute();
 $joined_gbif = $stmt->fetchAll();
 
+
 $species_name = '';
 $species_common_name ='';
 $species_body_mass = '';
@@ -95,19 +96,25 @@ foreach ($joined_gbif as $joined_g){
         $species_image_url = $joined_g["image_url"];
     }
 }
+    
 ?>
 
 
 <head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+    <style>
+        #map { 
+            height: 500px; 
+            width: 500px;
+            float: right;}
+    </style>
 </head>
 <body>
 <p><a href="animal_list.php">&larr; Back to species list</a></p>
 
 <h1><?= $page_name ?></h1>
-
-<?php
-var_dump($coordinateList)
-?>
 
 <img class="myImages" src="<?php echo e($species_image_url) ?>" style="width:150px;height:150px;" >
 
@@ -118,6 +125,8 @@ var_dump($coordinateList)
 <?php if(!is_null($species_iucn_cat)): ?>
     <p><?php echo e($species_iucn_cat); ?></p>
 <?php endif ?>
+
+<div id="map"></div>
 
 <?php if (empty($joined_gbif)): ?>
     <p>No observations found in the database.</p>
@@ -179,3 +188,12 @@ endforeach
 ?>
     
 </body>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    var map = L.map('map').setView([56.56, -3.89], 6);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+</script>
