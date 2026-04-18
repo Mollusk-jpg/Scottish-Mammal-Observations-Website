@@ -24,20 +24,13 @@
 
 
     <div class="header-right">
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#contact">Contact</a>
+        <a href="index.php">Home</a>
+        <a href="about_us.php">About</a>
+        <a href="contact.php">Contact</a>
+        <a href="observations.php">Observations</a>
+        <a href="add_observation.php">Add Observations</a>
         <a class="active" href="about.php">A-Z List</a>
     </div>
 </div>
-        <nav>
-            <a href="index.php">Home</a>
-            <a href="animal_list.php">Animal List</a>
-            <a href="observations.php">Observations</a>
-            <a href="add_observation.php">Add Observations</a>
-            <a href="about_us.php">About Us</a>
-
-            <!-- Students: Add more navigation links here -->
-        </nav>
     </header>
     <main>

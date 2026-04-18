@@ -31,6 +31,7 @@ $page_name = '';
 $coordinate_x = 0;
 $coordinate_y = 0;
 $coordinate_loc = '';
+$coordinate_date = '';
 
 $coordinateList = array();
 
@@ -46,8 +47,9 @@ foreach ($species as $specie):
             $coordinate_loc = $observation['locality'];
             $coordinate_x = (float) $observation['latitude'];
             $coordinate_y = (float) $observation['longitude'];
-            if (! in_array($coordinate_loc, $coordinateList) && ! in_array($coordinate_x, $coordinateList) && ! in_array($coordinate_y, $coordinateList)){
-                $coordinateList[] = [$coordinate_loc, $coordinate_x, $coordinate_y];
+            $coordinate_date = $observation['observation_date'];
+            if (! in_array($coordinate_loc, $coordinateList) && ! in_array($coordinate_x, $coordinateList) && ! in_array($coordinate_y, $coordinateList) && ! in_array($coordinate_date, $coordinateList)){
+                $coordinateList[] = [$coordinate_loc, $coordinate_x, $coordinate_y, $coordinate_date];
             }
         }
     endforeach;
@@ -141,7 +143,7 @@ require_once 'includes/animal_list_header.php';
 <p class="center">Body Mass: <?php echo e($species_body_mass); ?></p>
 
 <?php if(!is_null($species_iucn_cat)): ?>
-    <p><?php echo e($species_iucn_cat); ?></p>
+    <p class="center">Endangerment Status: <?php echo e($species_iucn_cat); ?></p>
 <?php endif ?>
 
 <div id="map"></div>

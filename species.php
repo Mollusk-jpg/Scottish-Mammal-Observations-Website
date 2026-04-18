@@ -44,7 +44,7 @@ if (!$species) {
 
 $pdo = getDbConnection();
 
-// Fetch the species details
+// Fetch species details and observation details, link by gbif_id
 $stmt = $pdo->prepare('
     SELECT
         observations.locality,
@@ -106,7 +106,40 @@ foreach ($joined_gbif as $joined_g):
     }
 endforeach
 */
+
+$locality_var = '';
+$individual_count_var = 0;
+$latitude_var = 0;
+$longitude_var = 0;
+$observation_date_var = '';
+$common_name_var = '';
+
+$observationArray = array();
+
+// Create an object array to be passed in the Obervations Table
+foreach ($joined_gbif as $joined_g){
+    if ($joined_g["common_name"] = $species['common_name']){
+        $locality_var = (string) $joined_g['locality'];
+        $individual_count_var = (int) $joined_g['individual_count'];
+        $latitude_var = (float) $joined_g['latitude'];
+        $longitude_var = (float) $joined_g['longitude'];
+        $observation_date_var = $joined_g['observation_date'];
+        $common_name_var = $joined_g['common_name'];
+        if (! in_array($locality_var, $observationArray) 
+            || ! in_array($individual_count_var, $observationArray) 
+            || ! in_array($latitude_var, $observationArray) 
+            || ! in_array($longitude_var, $observationArray)
+            || ! in_array($observation_date_var, $observationArray)
+            || ! in_array($common_name_var, $observationArray)){
+            $observationArray[] = [$locality_var, $individual_count_var, $latitude_var, $longitude_var, $observation_date_var, $common_name_var];
+        }
+        
+    }
+}
+
 ?>
+
+<p> <?php // var_dump($observationArray) ?> </p>
 
 <h1> Observations for <?php echo e($species['common_name']) ?> </h1>
 
@@ -125,43 +158,44 @@ endforeach
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($joined_gbif as $joined_g): ?>
-                <?php if ($joined_g["common_name"] = $species['common_name']): ?>
+            <?php foreach ($observationArray as $item): ?>
+                <?php if ($item[5] = $pageTitle): ?>
                     <tr>
-                        <?php if(!is_null($joined_g["locality"])): ?>
-                            <td><?php echo e($joined_g["locality"]); ?></td>
+                        <!-- Locality [0], String -->
+                        <?php if(strlen($item[0]) > 0): ?>
+                            <td><?php echo e($item[0]); ?></td>
                         <?php else: ?>
                             <td><?php echo "Locality Not Registered"; ?></td>
                         <?php endif ?>
-
-                        <?php if(!is_null($joined_g["individual_count"])): ?>
-                            <td><?php echo e($joined_g["individual_count"]); ?></td>
+                        <!-- Count [1], Int -->
+                        <?php if(!is_null($item[1])): ?>
+                            <td><?php echo e($item[1]); ?></td>
                         <?php else: ?>
                             <td><?php echo "Count not registered"; ?></td>
                         <?php endif ?>
-                        
-                        <?php if(!is_null($joined_g["latitude"])): ?>
-                            <td><?php echo e($joined_g["latitude"]); ?></td>
+                        <!-- Latitude [2], Float -->
+                        <?php if(!is_null($item[2])): ?>
+                            <td><?php echo e($item[2]); ?></td>
                         <?php else: ?>
                             <td><?php echo "N/A"; ?></td>
                         <?php endif ?>
-
-                        <?php if(!is_null($joined_g["longitude"])): ?>
-                            <td><?php echo e($joined_g["longitude"]); ?></td>
+                        <!-- Longitude [3], Float -->
+                        <?php if(!is_null($item[3])): ?>
+                            <td><?php echo e($item[3]); ?></td>
                         <?php else: ?>
                             <td><?php echo "N/A"; ?></td>
                         <?php endif ?>
-
-                        <?php if(!is_null($joined_g["observation_date"])): ?>
-                            <td><?php echo e($joined_g["observation_date"]); ?></td>
+                        <!-- Observation Date [4] -->
+                        <?php if(strlen($item[4]) > 0): ?>
+                            <td><?php echo e($item[4]); ?></td>
                         <?php else: ?>
-                            <td><?php echo "N/A"; ?></td>
+                            <td><?php echo "Observation Date Not Registered"; ?></td>
                         <?php endif ?>
-
-                        <?php if(!is_null($joined_g["common_name"])): ?>
-                            <td><?php echo e($joined_g["common_name"]); ?></td>
+                        <!-- Common Name [5] -->
+                        <?php if(strlen($item[5]) > 0): ?>
+                            <td><?php echo e($item[5]); ?></td>
                         <?php else: ?>
-                            <td><?php echo "N/A"; ?></td>
+                            <td><?php echo "Common Name Not Registered"; ?></td>
                         <?php endif ?>
                     </tr>
                 <?php endif ?>
