@@ -119,7 +119,7 @@ $observationArray = array();
 
 // Create an object array to be passed in the Obervations Table
 foreach ($joined_gbif as $joined_g){
-    if ($joined_g["common_name"] = $species['common_name']){
+    if ($joined_g["common_name"] == $species['common_name']){
         $locality_var = (string) $joined_g['locality'];
         $individual_count_var = (int) $joined_g['individual_count'];
         $latitude_var = (float) $joined_g['latitude'];
