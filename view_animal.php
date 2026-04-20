@@ -145,7 +145,12 @@ require_once 'includes/animal_list_header.php';
 <p class="center"><?php echo e($species_common_name); ?>'s are <?php echo e($diet_cat); ?>s</p>
 
 <?php if(!is_null($species_iucn_cat)): ?>
-    <p class="center">Their endangerment status is <?php echo e($species_iucn_cat); ?></p>
+    <?php if($species_iucn_cat == 'LC'): ?>
+        <p class="center">Their endangerment status is of Least Concern</p>
+    <?php endif ?>
+    <?php if($species_iucn_cat == 'EN'): ?>
+        <p class="center">They are considered an Endangered Species</p>
+    <?php endif ?>
 <?php endif ?>
 
 <div id="map"></div>

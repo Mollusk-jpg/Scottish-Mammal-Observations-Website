@@ -47,6 +47,7 @@ $pdo = getDbConnection();
 // Fetch species details and observation details, link by gbif_id
 $stmt = $pdo->prepare('
     SELECT
+        observations.id,
         observations.locality,
         observations.individual_count,
         observations.latitude,
@@ -113,7 +114,7 @@ $latitude_var = 0;
 $longitude_var = 0;
 $observation_date_var = '';
 $common_name_var = '';
-$date_to_string = 0;
+$observation_id = 0;
 
 $observationArray = array();
 
@@ -126,15 +127,15 @@ foreach ($joined_gbif as $joined_g){
         $longitude_var = (float) $joined_g['longitude'];
         $observation_date_var = (string) $joined_g['observation_date'];
         $common_name_var = $joined_g['common_name'];
-        $date_to_string = (int) str_replace('-','', $observation_date_var);
+        $observation_id = (int) $joined_g['id'];
         if (! in_array($locality_var, $observationArray) 
             || ! in_array($individual_count_var, $observationArray) 
             || ! in_array($latitude_var, $observationArray) 
             || ! in_array($longitude_var, $observationArray)
             || ! in_array($observation_date_var, $observationArray)
             || ! in_array($common_name_var, $observationArray)
-            || ! in_array($date_to_string, $observationArray)){
-            $observationArray[] = [$locality_var, $individual_count_var, $latitude_var, $longitude_var, $observation_date_var, $common_name_var, $date_to_string];
+            || ! in_array($observation_id, $observationArray)){
+            $observationArray[] = [$locality_var, $individual_count_var, $latitude_var, $longitude_var, $observation_date_var, $common_name_var, $observation_id];
         }
         
     }
@@ -167,7 +168,7 @@ foreach ($joined_gbif as $joined_g){
                 <th>latitude</th>
                 <th>longitude</th>
                 <th>observation_date</th>
-                <th>Common Name</th>
+                <th>CRUD</th>
             </tr>
         </thead>
         <tbody id="tableBody">
@@ -204,12 +205,8 @@ foreach ($joined_gbif as $joined_g){
                         <?php else: ?>
                             <td><?php echo "Observation Date Not Registered"; ?></td>
                         <?php endif ?>
-                        <!-- Common Name [5] -->
-                        <?php if(!is_null($item[5])): ?>
-                            <td><?php echo e($item[5]); ?></td>
-                        <?php else: ?>
-                            <td><?php echo "Common Name Not Registered"; ?></td>
-                        <?php endif ?>
+                        <!-- Edit Option -->
+                        <td><a href="add_observation.php?id=<?= $item[6] ?>">Edit</a></td>
                     </tr>
                 <?php endif ?>
             <?php endforeach; ?>
