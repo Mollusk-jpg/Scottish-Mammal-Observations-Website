@@ -37,9 +37,6 @@ $coordinateList = array();
 
 // Create list of latitude and longitude points. (currently returns string, FIXED)
 foreach ($species as $specie): 
-    if ($specie['gbif_species_key'] == $speciesKey){
-        echo $specie['common_name'], " Latitude and Longitude: "; 
-    } 
     
     foreach ($observations as $observation): 
         if ($observation['gbif_species_key'] == $speciesKey){
@@ -75,7 +72,8 @@ $stmt = $pdo->prepare('
         species.species_name,
         species.iucn_red_list_category,
         species.body_mass_kg,
-        species.image_url
+        species.image_url,
+        species.dietary_category
     FROM observations, species
     WHERE observations.gbif_species_key = species.gbif_species_key 
     ORDER BY `observations`.`observation_date` DESC
@@ -89,7 +87,7 @@ $species_common_name ='';
 $species_body_mass = '';
 $species_iucn_cat = '';
 $species_image_url = '';
-
+$diet_cat = '';
 
 foreach ($joined_gbif as $joined_g){
     if ($joined_g['gbif_species_key'] == $speciesKey){
@@ -98,6 +96,7 @@ foreach ($joined_gbif as $joined_g){
         $species_body_mass = $joined_g["body_mass_kg"];
         $species_iucn_cat = $joined_g["iucn_red_list_category"];
         $species_image_url = $joined_g["image_url"];
+        $diet_cat = $joined_g["dietary_category"];
     }
 }
     
@@ -132,26 +131,29 @@ require_once 'includes/animal_list_header.php';
     </style>
 </head>
 <body>
-<p><a href="animal_list.php">&larr; Back to species list</a></p>
 
 <h1><?= $page_name ?></h1>
+<a class="center" style="color: green;" href="species.php?key=<?php echo e($speciesKey); ?>">Technical Details</a>
+
+
+<h1 class="center" style="color: white;"><?php echo e($species_common_name); ?> | <em><?php echo e($species_name); ?></em></h1>
 
 <img class="center" src="<?php echo e($species_image_url) ?>" style="width:150px;height:150px;" >
 
-<p class="center">Species Name: <?php echo e($species_name); ?></p>
-<p class="center">Common Name: <?php echo e($species_common_name); ?></p>
-<p class="center">Body Mass: <?php echo e($species_body_mass); ?></p>
+
+<p class="center"><?php echo e($species_common_name); ?>'s have a body mass of <?php echo e($species_body_mass); ?>KG</p>
+<p class="center"><?php echo e($species_common_name); ?>'s are <?php echo e($diet_cat); ?>s</p>
 
 <?php if(!is_null($species_iucn_cat)): ?>
-    <p class="center">Endangerment Status: <?php echo e($species_iucn_cat); ?></p>
+    <p class="center">Their endangerment status is <?php echo e($species_iucn_cat); ?></p>
 <?php endif ?>
 
 <div id="map"></div>
-
+<!-- 
 <?php if (empty($joined_gbif)): ?>
     <p>No observations found in the database.</p>
 <?php else: ?>
-    <table id="results">
+    <table class="center" style="color: white;" id="results">
         <thead>
             <tr>
                 <th>Locality</th>
@@ -196,7 +198,9 @@ require_once 'includes/animal_list_header.php';
         </tbody>
     </table>
 <?php endif; ?>
+                        -->
 
+<p class="center"> Lorem Ipsum </p>
 
 
 <!-- This is to make the header the same animal clicked on in about.php -->

@@ -57,7 +57,7 @@ if (mysqli_connect_errno()) {
     die("Connection Error: " . mysqli_connect_error());
 }
 
-$sql = "INSERT INTO test_db (locality, individual_count, latitude, longitude, gbif_species_key, observation_date)
+$sql = "INSERT INTO test_observation (locality, individual_count, latitude, longitude, gbif_species_key, observation_date)
         VALUES (?, ?, ?, ?, ?, ?)";
 
 $stmt = mysqli_stmt_init($conn);
@@ -76,5 +76,8 @@ mysqli_stmt_bind_param($stmt, "siiiii",
 
 mysqli_stmt_execute($stmt);
 
-echo "observation has been saved."
+$home_link = 'home.php';
+
+echo "observation has been saved.";
+echo "<a href='../{$home_link}'>Back to Home Page</a>";
 ?> 

@@ -63,13 +63,13 @@ $joined_gbif = $stmt->fetchAll();
 
 $pageTitle = $species['common_name'];
 
-require_once 'includes/header.php';
+require_once 'includes/animal_list_header.php';
 ?>
 
-<body>
-<p><a href="index.php">&larr; Back to all species</a></p>
+<body style="color: white">
+<a style="color: green;" href="view_animal.php?key=<?php echo e($speciesKey); ?>">Animal Page</a>
 
-<h2><?php echo e($species['common_name']); ?></h2>
+<h2>Advanced Details for <?php echo e($species['common_name']); ?></h2>
 
 
 
@@ -113,6 +113,7 @@ $latitude_var = 0;
 $longitude_var = 0;
 $observation_date_var = '';
 $common_name_var = '';
+$date_to_string = 0;
 
 $observationArray = array();
 
@@ -123,15 +124,17 @@ foreach ($joined_gbif as $joined_g){
         $individual_count_var = (int) $joined_g['individual_count'];
         $latitude_var = (float) $joined_g['latitude'];
         $longitude_var = (float) $joined_g['longitude'];
-        $observation_date_var = $joined_g['observation_date'];
+        $observation_date_var = (string) $joined_g['observation_date'];
         $common_name_var = $joined_g['common_name'];
+        $date_to_string = (int) str_replace('-','', $observation_date_var);
         if (! in_array($locality_var, $observationArray) 
             || ! in_array($individual_count_var, $observationArray) 
             || ! in_array($latitude_var, $observationArray) 
             || ! in_array($longitude_var, $observationArray)
             || ! in_array($observation_date_var, $observationArray)
-            || ! in_array($common_name_var, $observationArray)){
-            $observationArray[] = [$locality_var, $individual_count_var, $latitude_var, $longitude_var, $observation_date_var, $common_name_var];
+            || ! in_array($common_name_var, $observationArray)
+            || ! in_array($date_to_string, $observationArray)){
+            $observationArray[] = [$locality_var, $individual_count_var, $latitude_var, $longitude_var, $observation_date_var, $common_name_var, $date_to_string];
         }
         
     }
@@ -142,6 +145,16 @@ foreach ($joined_gbif as $joined_g){
 <p> <?php // var_dump($observationArray) ?> </p>
 
 <h1> Observations for <?php echo e($species['common_name']) ?> </h1>
+
+<p>Search for Date Range:</p>
+
+<label for="dateFilterStart">Select Start Date: </label>
+<input type="date" id="dateFilterStart">
+
+<label for="dateFilterEnd">Select End Date: </label>
+<input type="date" id="dateFilterEnd">
+
+<button onclick="filterTable()">Search</button>
 
 <?php if (empty($species)): ?>
     <p>No observations found in the database.</p>
@@ -154,10 +167,10 @@ foreach ($joined_gbif as $joined_g){
                 <th>latitude</th>
                 <th>longitude</th>
                 <th>observation_date</th>
-                <th>common_name</th>
+                <th>Common Name</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tableBody">
             <?php foreach ($observationArray as $item): ?>
                 <?php if ($item[5] = $pageTitle): ?>
                     <tr>
@@ -192,7 +205,7 @@ foreach ($joined_gbif as $joined_g){
                             <td><?php echo "Observation Date Not Registered"; ?></td>
                         <?php endif ?>
                         <!-- Common Name [5] -->
-                        <?php if(strlen($item[5]) > 0): ?>
+                        <?php if(!is_null($item[5])): ?>
                             <td><?php echo e($item[5]); ?></td>
                         <?php else: ?>
                             <td><?php echo "Common Name Not Registered"; ?></td>

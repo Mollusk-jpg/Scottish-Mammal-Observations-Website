@@ -17,19 +17,20 @@
 
 <div class="header">
     <div>
-        <a href="index.php" class="logo">
+        <a href="home.php" class="logo">
             <img src="images/logo_SMO.png" style="height: 190px; width: 190px;"/>
         </a>
 </div>
 
 
     <div class="header-right">
-        <a href="index.php">Home</a>
-        <a href="about_us.php">About</a>
-        <a href="contact.php">Contact</a>
-        <a href="observations.php">Observations</a>
-        <a href="add_observation.php">Add Observations</a>
-        <a class="active" href="about.php">A-Z List</a>
+        <a style="color: white;" href="home.php">Home</a>
+        <a style="color: white;" href="about_us.php">About</a>
+        <a style="color: white;" href="contact.php">Contact</a>
+        <!-- <a href="observations.php">Observations</a> -->
+        <a style="color: white;" href="add_observation.php">Add Observations</a>
+        <a style="color: white;" href="animal_list.php">A-Z List</a>
+        <a style="color: white;" href="index.php">Advanced Search</a>
     </div>
 </div>
     </header>

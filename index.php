@@ -22,14 +22,21 @@ $stmt = $pdo->query('
 ');
 $species = $stmt->fetchAll();
 
-require_once 'includes/header.php';
+require_once 'includes/animal_list_header.php';
 ?>
 
 <head>
     <link rel="stylesheet" href="css/image_popup.css">
+    <style>
+        body {
+            background-color: white;
+            }
+    </style>
 </head>
 
-<h2>Scottish Mammal Species</h2>
+<body>
+
+<h2>Advanced Search for Scottish Mammal Species</h2>
 
 
 
@@ -83,7 +90,7 @@ require_once 'includes/header.php';
         </tbody>
     </table>
 <?php endif; ?>
-
+</body>
 <script src="js/indexJS.js" defer></script>
 
 <?php require_once 'includes/footer.php'; ?>

@@ -13,7 +13,7 @@
         <nav>
             <a href="index.php">Home</a>
             <a href="animal_list.php">Animal List</a>
-            <a href="observations.php">Observations</a>
+            <!-- <a href="observations.php">Observations</a> -->
             <a href="add_observation.php">Add Observations</a>
             <a href="contact.php">Contact Us</a>
             <a href="about_us.php">About Us</a>

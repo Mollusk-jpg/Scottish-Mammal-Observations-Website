@@ -11,7 +11,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact - My Website</title>
     <link rel="stylesheet" href="css/contact_style.css">
-
+    <style>
+    body {
+        color: white;
+    }
+    form {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+    </style>
 </head>
 <body>
 <h1> Contact Us </h1>

@@ -57,6 +57,9 @@ mysqli_stmt_bind_param($stmt, "ssis",
 
 mysqli_stmt_execute($stmt);
 
-echo "message has been saved."
+$home_link = 'home.php';
+
+echo "message has been saved.";
+echo "<a href='../{$home_link}'>Back to Home Page</a>";
 
 ?>
