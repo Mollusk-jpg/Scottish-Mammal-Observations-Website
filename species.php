@@ -67,6 +67,7 @@ $pageTitle = $species['common_name'];
 
 require_once 'includes/animal_list_header.php';
 ?>
+<head>
 <style>
         table {
             margin: auto;
@@ -87,16 +88,24 @@ require_once 'includes/animal_list_header.php';
         td {
             padding: 10px;
         }
+
+        .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        }
 </style>
-
+</head>
 <body style="color: white">
-<a style="color: green;" href="view_animal.php?key=<?php echo e($speciesKey); ?>">Animal Page</a>
+<a class="center" style="color: green;" href="view_animal.php?key=<?php echo e($speciesKey); ?>">Animal Page</a>
 
-<h2>Advanced Details for <?php echo e($species['common_name']); ?></h2>
+<h1 class="center" style="color: white;"><em><?php echo e($species['species_name']); ?></em> | <?php echo e($species['common_name']); ?></h1>
+<h2 class="center">Advanced Details for <?php echo e($species['common_name']); ?></h2>
 
 
 
-<dl>
+<dl class="center">
     <dt>Scientific Name</dt>
     <dd><em><?php echo e($species['species_name']); ?></em></dd>
 
@@ -116,19 +125,7 @@ require_once 'includes/animal_list_header.php';
     <dd><?php echo e($species['uk_protection_status']); ?></dd>
 </dl>
 
-<?php
-/*
-foreach ($joined_gbif as $joined_g):
-    if ($joined_g["common_name"] = $species['common_name']) {
-        echo e($joined_g["locality"]);
-        echo e($joined_g["individual_count"]);
-        echo e($joined_g["latitude"]);
-        echo e($joined_g["longitude"]);
-        echo e($joined_g["observation_date"]);
-        echo e($joined_g["common_name"]);
-    }
-endforeach
-*/
+<?php // built PHP close to the JS, will move when properly impemented. 
 
 $locality_var = '';
 $individual_count_var = 0;
@@ -167,18 +164,18 @@ foreach ($joined_gbif as $joined_g){
 
 <p> <?php // var_dump($observationArray) ?> </p>
 
-<h1> Observations for <?php echo e($species['common_name']) ?> </h1>
+<h1 class="center"> Observations for <?php echo e($species['common_name']) ?> </h1>
+<div class="center">
+    <p>Search for Date Range:</p>
 
-<p>Search for Date Range:</p>
+    <label for="dateFilterStart">Select Start Date: </label>
+    <input type="date" id="dateFilterStart">
 
-<label for="dateFilterStart">Select Start Date: </label>
-<input type="date" id="dateFilterStart">
+    <label for="dateFilterEnd">Select End Date: </label>
+    <input type="date" id="dateFilterEnd">
 
-<label for="dateFilterEnd">Select End Date: </label>
-<input type="date" id="dateFilterEnd">
-
-<button onclick="filterTable()">Search</button>
-
+    <button onclick="filterTable()">Search</button>
+</div>
 <table id="myTable">
     <tr>
         <th>locality</th>

@@ -30,6 +30,14 @@ require_once 'includes/animal_list_header.php';
     
     
 }
+input[type=text] {
+    float: right;
+    padding: 6px;
+    border: none;
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
+}
 </style>
 </head>
 <body>
@@ -55,7 +63,7 @@ require_once 'includes/animal_list_header.php';
         <?php   endforeach;?>
 <?php endif; ?>
 
-
+<!--
 <?php if (empty($species_names)): ?>
     <p>No species names found in the database.</p>
 <?php else: ?>
@@ -67,7 +75,6 @@ require_once 'includes/animal_list_header.php';
                     <div>
                         <h1><?php echo e($names['common_name'][0]); ?></h1>
                     </div>
-                    <!-- <img src="images/american_mink.jpg" alt="American Mink" style="width:50px;height:60px;"> -->
                     <a href="view_animal.php?key=<?php echo e($names['gbif_species_key']); ?>"><?php echo e($names['common_name']); ?></a>
                     <p><?php echo e($names['species_name']); ?></p>
                 </div>
@@ -75,20 +82,20 @@ require_once 'includes/animal_list_header.php';
         </div>
         <?php   endforeach;?>
 <?php endif; ?>
-
+        -->
 
 <script>
 const searchEl = document.querySelector('.searchbox');
 const x = document.querySelectorAll('.card p:nth-child(2)');
 
 function search(e){
-  x.forEach((item,index) => {
-    if(!item.innerHTML.toLowerCase().includes(e.target.value)){
-      item.parentElement.style.display = 'none';
-    }else {
-      item.parentElement.style.display = 'block';
-    }
-  })
+    x.forEach((item,index) => {
+        if(!item.innerHTML.toLowerCase().includes(e.target.value)){
+        item.parentElement.style.display = 'none';
+        }else {
+        item.parentElement.style.display = 'block';
+        }
+    })
 }
 
 searchEl.addEventListener("keyup", search); 

@@ -29,7 +29,7 @@ require_once 'includes/animal_list_header.php';
     <link rel="stylesheet" href="css/image_popup.css">
     <style>
         body {
-            background-color: white;
+            background-color: AntiqueWhite;
             }
     </style>
 </head>
