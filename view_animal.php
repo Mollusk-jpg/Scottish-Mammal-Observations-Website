@@ -131,12 +131,16 @@ require_once 'includes/animal_list_header.php';
     </style>
 </head>
 <body>
-
+<div style="float: left">
+    <a href="animal_list.php" class="logo">
+        <img src="images/AZList.png" style="height: 80px; width: 80px;"/>
+    </a>
+</div>
 <h1><?= $page_name ?></h1>
-<a class="center" style="color: green;" href="species.php?key=<?php echo e($speciesKey); ?>">Technical Details</a>
 
 
-<h1 class="center" style="color: white;"><?php echo e($species_common_name); ?> | <em><?php echo e($species_name); ?></em></h1>
+
+<h1 class="center" style="color: white;"><?php echo e($species_common_name); ?> | <em><a style="color: royalblue;" href="species.php?key=<?php echo e($speciesKey); ?>"><?php echo e($species_name); ?></a></em></h1>
 
 <img class="center" src="<?php echo e($species_image_url) ?>" style="width:150px;height:150px;" >
 

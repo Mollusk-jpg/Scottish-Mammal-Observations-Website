@@ -32,10 +32,15 @@ body{
 <link rel="stylesheet" href="css/contact_style.css">
 <body>
 <main>
-<?php 
-// var_dump($observation_id)
-?>
-    <h1> Add Observation </h1>
+
+<!-- <a style="color: royalblue;" href="species.php?key=<?= e($observation_id['gbif_species_key']); ?>"> -->
+<?php if(!is_null($observation_id)): ?>
+    <h1 style="color: SpringGreen;"> Update Observation </h1>
+    <!-- <h2><a style="color: royalblue;" href="species.php?key=<?= e($observation_id['gbif_species_key']); ?>">Back</a></h2> -->
+<?php else: ?>
+    <h1>Add Observation</h1>
+<?php endif ?>
+    
 
     <form action="includes/process_observation.php" method="post">
         <div>

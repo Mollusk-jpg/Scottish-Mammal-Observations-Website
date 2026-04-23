@@ -69,6 +69,7 @@ require_once 'includes/animal_list_header.php';
 ?>
 <head>
 <style>
+    body {background-color: #09203b;}
         table {
             margin: auto;
         }
@@ -98,11 +99,16 @@ require_once 'includes/animal_list_header.php';
 </style>
 </head>
 <body style="color: white">
-<a class="center" style="color: green;" href="view_animal.php?key=<?php echo e($speciesKey); ?>">Animal Page</a>
-
-<h1 class="center" style="color: white;"><em><?php echo e($species['species_name']); ?></em> | <?php echo e($species['common_name']); ?></h1>
+<div style="float: left">
+    <a href="animal_list.php" class="logo">
+        <img src="images/AZList.png" style="height: 80px; width: 80px;"/>
+    </a>
+</div>
+<h1 class="center" style="color: white;"><em><a style="color: green;" href="view_animal.php?key=<?php echo e($speciesKey); ?>"><?php echo e($species['common_name']);?></a></em> | <?php echo e($species['species_name']);  ?></h1>
 <h2 class="center">Advanced Details for <?php echo e($species['common_name']); ?></h2>
-
+<div>
+    <img class="center" style="height: 180px; width: 180px;" src="<?php echo $species['image_url']; ?>" />
+</div>
 
 
 <dl class="center">
@@ -257,7 +263,7 @@ console.log(tempArray);
                 longitudeCell.innerHTML = tempArray[3];
                 observation_dateCell.innerHTML = tempArray[4];
                 key = tempArray[6];
-                CRUD_Cell.innerHTML = "<td><a href='add_observation.php?id=" + key + "'>Edit</a></td>";
+                CRUD_Cell.innerHTML = "<td><a  style='color: cyan;' href='add_observation.php?id=" + key + "'>Edit</a></td>";
             });
 
             // Update pagination

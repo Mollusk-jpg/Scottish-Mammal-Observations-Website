@@ -20,7 +20,7 @@
         <a href="home.php" class="logo">
             <img src="images/logo_SMO.png" style="height: 190px; width: 190px;"/>
         </a>
-</div>
+    </div>
 
 
     <div class="header-right">

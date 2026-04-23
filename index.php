@@ -29,18 +29,24 @@ require_once 'includes/animal_list_header.php';
     <link rel="stylesheet" href="css/image_popup.css">
     <style>
         body {
-            background-color: AntiqueWhite;
+            background-color: lightblue;
             }
+        .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        }
     </style>
 </head>
 
 <body>
 
-<h2>Advanced Search for Scottish Mammal Species</h2>
+<h2 class="center">Advanced Search for Scottish Mammal Species</h2>
 
 
 
-<p>Explore our database of 34 mammal species found in Scotland.</p>
+<p >Explore our database of 34 mammal species found in Scotland.</p>
 
 <!-- Search Bar --> 
 <input type="text" id="myInputName" onkeyup="mySearchFunctionNames()" placeholder="Search for Names">
