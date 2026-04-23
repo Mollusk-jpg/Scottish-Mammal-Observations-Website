@@ -41,6 +41,7 @@ if (!$species) {
     exit;
 }
 
+$observations = getAllObservations();
 
 $pdo = getDbConnection();
 
@@ -66,6 +67,27 @@ $pageTitle = $species['common_name'];
 
 require_once 'includes/animal_list_header.php';
 ?>
+<style>
+        table {
+            margin: auto;
+        }
+
+        #pagination {
+            text-align: center;
+        }
+        
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 10px;
+        }
+</style>
 
 <body style="color: white">
 <a style="color: green;" href="view_animal.php?key=<?php echo e($speciesKey); ?>">Animal Page</a>
@@ -157,64 +179,119 @@ foreach ($joined_gbif as $joined_g){
 
 <button onclick="filterTable()">Search</button>
 
-<?php if (empty($species)): ?>
-    <p>No observations found in the database.</p>
-<?php else: ?>
-    <table id="results">
-        <thead>
-            <tr>
-                <th>locality</th>
-                <th>individual_count</th>
-                <th>latitude</th>
-                <th>longitude</th>
-                <th>observation_date</th>
-                <th>CRUD</th>
-            </tr>
-        </thead>
-        <tbody id="tableBody">
-            <?php foreach ($observationArray as $item): ?>
-                <?php if ($item[5] = $pageTitle): ?>
-                    <tr>
-                        <!-- Locality [0], String -->
-                        <?php if(strlen($item[0]) > 0): ?>
-                            <td><?php echo e($item[0]); ?></td>
-                        <?php else: ?>
-                            <td><?php echo "Locality Not Registered"; ?></td>
-                        <?php endif ?>
-                        <!-- Count [1], Int -->
-                        <?php if(!is_null($item[1])): ?>
-                            <td><?php echo e($item[1]); ?></td>
-                        <?php else: ?>
-                            <td><?php echo "Count not registered"; ?></td>
-                        <?php endif ?>
-                        <!-- Latitude [2], Float -->
-                        <?php if(!is_null($item[2])): ?>
-                            <td><?php echo e($item[2]); ?></td>
-                        <?php else: ?>
-                            <td><?php echo "N/A"; ?></td>
-                        <?php endif ?>
-                        <!-- Longitude [3], Float -->
-                        <?php if(!is_null($item[3])): ?>
-                            <td><?php echo e($item[3]); ?></td>
-                        <?php else: ?>
-                            <td><?php echo "N/A"; ?></td>
-                        <?php endif ?>
-                        <!-- Observation Date [4] -->
-                        <?php if(strlen($item[4]) > 0): ?>
-                            <td><?php echo e($item[4]); ?></td>
-                        <?php else: ?>
-                            <td><?php echo "Observation Date Not Registered"; ?></td>
-                        <?php endif ?>
-                        <!-- Edit Option -->
-                        <td><a href="add_observation.php?id=<?= $item[6] ?>">Edit</a></td>
-                    </tr>
-                <?php endif ?>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-<?php endif; ?>
+<table id="myTable">
+    <tr>
+        <th>locality</th>
+        <th>individual_count</th>
+        <th>latitude</th>
+        <th>longitude</th>
+        <th>observation_date</th>
+        <th>CRUD</th>
+    </tr>
 
-<script src="js/species.js" defer></script>
+</table>
+<div id="pagination"></div>
+
+
+
+<script>
+// This is for sort by date:
+function filterTable() {
+    let inputStart = document.getElementById("dateFilterStart").value;
+    let inputEnd = document.getElementById("dateFilterEnd").value;
+    let table = document.getElementById("tableBody");
+    let rows = table.getElementsByTagName("tr");
+    
+    for (let i = 0; i < rows.length; i++) {
+        let dateCell = rows[i].getElementsByTagName("td")[4];
+
+        if (dateCell) {
+            let dateValue = dateCell.textContent || dateCell.innerText;
+            if(dateValue < inputStart){
+                rows[i].style.display = dateValue === inputStart ? "" : "none";
+            }
+            if (dateValue > inputEnd){
+                rows[i].style.display = dateValue === inputEnd ? "" : "none";
+            }
+                
+        }
+    }
+}
+// This is for pagination:
+var tempArray = <?php echo json_encode($observationArray); ?>;
+
+console.log(tempArray);
+    const rowsPerPage = 50;
+    let currentPage = 1;
+
+    function displayTable(page) {
+        const table = document.getElementById("myTable");
+        const startIndex = (page - 1) * rowsPerPage;
+        const endIndex = startIndex + rowsPerPage;
+        const slicedData = tempArray.slice(startIndex, endIndex);
+
+            // Clear existing table rows
+            table.innerHTML = `
+        <tbody id="tableBody">
+        <tr>
+            <th>locality</th>
+            <th>individual_count</th>
+            <th>latitude</th>
+            <th>longitude</th>
+            <th>observation_date</th>
+            <th>CRUD</th>
+        </tr>
+        </tbody>
+    `;
+
+            // Add new rows to the table
+            slicedData.forEach(tempArray => {
+                const row = table.insertRow();
+                const localityCell = row.insertCell(0);
+                const countCell = row.insertCell(1);
+                const latitudeCell = row.insertCell(2);
+                const longitudeCell = row.insertCell(3);
+                const observation_dateCell = row.insertCell(4);
+                const CRUD_Cell = row.insertCell(5);
+
+                localityCell.innerHTML = tempArray[0];
+                countCell.innerHTML = tempArray[1];
+                latitudeCell.innerHTML = tempArray[2];
+                longitudeCell.innerHTML = tempArray[3];
+                observation_dateCell.innerHTML = tempArray[4];
+                key = tempArray[6];
+                CRUD_Cell.innerHTML = "<td><a href='add_observation.php?id=" + key + "'>Edit</a></td>";
+            });
+
+            // Update pagination
+            updatePagination(page);
+        }
+
+        function updatePagination(currentPage) {
+            const pageCount = Math.ceil(tempArray.length / rowsPerPage);
+            const paginationContainer = document.getElementById("pagination");
+            paginationContainer.innerHTML = "";
+
+            for (let i = 1; i <= pageCount; i++) {
+                const pageLink = document.createElement("a");
+                pageLink.href = "#";
+                pageLink.innerText = i;
+                pageLink.onclick = function () {
+                    displayTable(i);
+                };
+                if (i === currentPage) {
+                    pageLink.style.fontWeight = "bold";
+                }
+                paginationContainer.appendChild(pageLink);
+                paginationContainer.appendChild(document.createTextNode(" "));
+            }
+        }
+
+        // Initial display
+        displayTable(currentPage);
+
+</script>
 
 <?php require_once 'includes/footer.php'; ?>
 </body>
+</html>

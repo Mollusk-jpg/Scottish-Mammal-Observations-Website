@@ -3,7 +3,7 @@
 
 $name = $_POST['name'] ?? null;
 $email = $_POST['email'] ?? null;
-$phone = $_POST['phone'] ?? null;
+$phone = $_POST['phone'] ?? null; 
 $message = $_POST['message'] ?? null;
 
 // Validation

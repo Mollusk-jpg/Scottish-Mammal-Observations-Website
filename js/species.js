@@ -1,3 +1,4 @@
+// This is for sort by date:
 function filterTable() {
     let inputStart = document.getElementById("dateFilterStart").value;
     let inputEnd = document.getElementById("dateFilterEnd").value;
@@ -9,13 +10,15 @@ function filterTable() {
 
         if (dateCell) {
             let dateValue = dateCell.textContent || dateCell.innerText;
-              if(dateValue < inputStart){
+            if(dateValue < inputStart){
                 rows[i].style.display = dateValue === inputStart ? "" : "none";
-              }
-              if (dateValue > inputEnd){
+            }
+            if (dateValue > inputEnd){
                 rows[i].style.display = dateValue === inputEnd ? "" : "none";
-              }
+            }
                 
         }
     }
 }
+// This is for pagination:
+    

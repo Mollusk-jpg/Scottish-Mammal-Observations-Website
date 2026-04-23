@@ -102,7 +102,11 @@ body{
         </div>
     
         <br>
-        <button>Send</button>
+        <?php if(!is_null($observation_id)): ?>
+            <button>Update</button>
+        <?php else: ?>
+            <button>Send</button>
+        <?php endif ?>
     </form>
 
 </main>
