@@ -27,6 +27,12 @@ body{
         margin-right: auto;
         width: 50%;
     }
+.center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        }
 </style>
 </head>
 <link rel="stylesheet" href="css/contact_style.css">
@@ -35,15 +41,15 @@ body{
 
 <!-- <a style="color: royalblue;" href="species.php?key=<?= e($observation_id['gbif_species_key']); ?>"> -->
 <?php if(!is_null($observation_id)): ?>
-    <h1 style="color: SpringGreen;"> Update Observation </h1>
+    <h1 class="center" style="color: SpringGreen;"> Update Observation </h1>
     <!-- <h2><a style="color: royalblue;" href="species.php?key=<?= e($observation_id['gbif_species_key']); ?>">Back</a></h2> -->
 <?php else: ?>
-    <h1>Add Observation</h1>
+    <h1 class="center">Add Observation</h1>
 <?php endif ?>
     
 
-    <form action="includes/process_observation.php" method="post">
-        <div>
+    <form action="includes/process_observation.php" id="contact-form" method="post">
+        <div class="form-group">
         <label for="id">id</label>
         <?php if(!is_null($observation_id)): ?>
             <input type="number" id="id" name="id" value="<?= $observation_id[0]['id'] ?>" >
@@ -52,7 +58,7 @@ body{
         <?php endif ?>
         </div>
 
-        <div>
+        <div class="form-group">
         <label for="locality">locality</label>
         <?php if(!is_null($observation_id)): ?>
             <input type="text" id="locality" name="locality" value="<?= $observation_id[0]['locality'] ?>">
@@ -61,7 +67,7 @@ body{
         <?php endif ?>
         </div>
 
-        <div>
+        <div class="form-group">
         <label for="individual_count">individual_count</label>
         <?php if(!is_null($observation_id)): ?>
             <input type="number" id="individual_count" name="individual_count" value="<?= $observation_id[0]['individual_count'] ?>">
@@ -70,7 +76,7 @@ body{
         <?php endif ?>
         </div>
 
-        <div>
+        <div class="form-group">
         <label for="latitude">latitude</label>
         <?php if(!is_null($observation_id)): ?>
             <input type="number" id="latitude" name="latitude" value="<?= $observation_id[0]['latitude'] ?>">
@@ -79,7 +85,7 @@ body{
         <?php endif ?>
         </div>
 
-        <div>
+        <div class="form-group">
         <label for="longitude">longitude</label>
         <?php if(!is_null($observation_id)): ?>
             <input type="number" id="longitude" name="longitude" value="<?= $observation_id[0]['longitude'] ?>">
@@ -88,7 +94,7 @@ body{
         <?php endif ?>
         </div>
 
-        <div>
+        <div class="form-group">
         <label for="gbif_species_key">gbif_species_key</label>
         <?php if(!is_null($observation_id)): ?>
             <input type="number" id="gbif_species_key" name="gbif_species_key" value="<?= $observation_id[0]['gbif_species_key'] ?>">
@@ -97,7 +103,7 @@ body{
         <?php endif ?>
         </div>
 
-        <div>
+        <div class="form-group">
         <label for="observation_date">observation_date</label>
         <?php if(!is_null($observation_id)): ?>
             <input type="date" id="observation_date" name="observation_date" value="<?= $observation_id[0]['observation_date'] ?>">

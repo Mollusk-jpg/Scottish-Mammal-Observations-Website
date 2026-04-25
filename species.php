@@ -279,12 +279,13 @@ console.log(tempArray);
                 const pageLink = document.createElement("a");
                 pageLink.href = "#";
                 pageLink.innerText = i;
+                pageLink.style.color = "cyan";
                 pageLink.onclick = function () {
                     displayTable(i);
                 };
                 if (i === currentPage) {
                     pageLink.style.fontWeight = "bold";
-                    pageLink.style.color = "cyan";
+                    pageLink.style.color = "DarkCyan";
                 }
                 paginationContainer.appendChild(pageLink);
                 paginationContainer.appendChild(document.createTextNode(" "));
