@@ -284,6 +284,7 @@ console.log(tempArray);
                 };
                 if (i === currentPage) {
                     pageLink.style.fontWeight = "bold";
+                    pageLink.style.color = "cyan";
                 }
                 paginationContainer.appendChild(pageLink);
                 paginationContainer.appendChild(document.createTextNode(" "));

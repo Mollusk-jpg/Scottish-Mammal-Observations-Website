@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Apr 23, 2026 at 11:54 PM
+-- Generation Time: Apr 24, 2026 at 01:33 PM
 -- Server version: 8.4.7
 -- PHP Version: 8.3.28
 
@@ -4009,7 +4009,7 @@ CREATE TABLE IF NOT EXISTS `test_observations` (
   `observation_date` date NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
